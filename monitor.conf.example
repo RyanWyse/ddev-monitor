@@ -1,0 +1,37 @@
+# ddev-monitor configuration (sourced by ddev-monitor.sh)
+
+# Minutes of inactivity before a project is considered idle and stopped.
+IDLE_MINUTES=60
+
+# Set to 0 to only log idle projects instead of stopping them.
+STOP_IDLE=1
+
+# Delete (ddev delete -Oy: code kept, containers/volumes/registration removed)
+# any project that has stayed stopped/paused this many days. Max one delete
+# per run. 0 disables.
+DELETE_OFF_DAYS=7
+
+# Space-separated project names exempt from the DELETE_OFF_DAYS sweep only
+# (still eligible for idle-pause and memory shedding, unlike
+# PROTECTED_PROJECTS which exempts a project from all three).
+NEVER_DELETE=""
+
+# Stop the least-recently-used project when Docker VM memory usage
+# exceeds this percentage of the VM's total memory.
+MEM_THRESHOLD_PCT=80
+
+# If a project's web container is using more CPU than this percentage,
+# never stop it even if it looks idle (protects long silent test runs).
+CPU_ACTIVE_PCT=15
+
+# Space-separated project names that must never be auto-stopped.
+PROTECTED_PROJECTS=""
+
+# Set to 1 to log what would happen without stopping anything.
+DRY_RUN=0
+
+# Post a macOS notification when a project is stopped.
+NOTIFY=1
+
+# Restart ddev-router when host :443 is wedged but :80 works.
+HEAL_ROUTER=1

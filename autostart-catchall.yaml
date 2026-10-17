@@ -1,0 +1,25 @@
+# Custom (not #ddev-generated — ddev preserves this file).
+# Lowest-priority catch-all: any *.ddev.site request that no running
+# project's router matches lands on the ddev-autostart daemon on the host,
+# which starts the project and serves a "starting..." page.
+http:
+  routers:
+    ddev-autostart-catchall-http:
+      entrypoints:
+        - http-80
+      rule: HostRegexp(`^.+\.ddev\.site$`)
+      priority: 1
+      service: ddev-autostart
+      tls: false
+    ddev-autostart-catchall-https:
+      entrypoints:
+        - http-443
+      rule: HostRegexp(`^.+\.ddev\.site$`)
+      priority: 1
+      service: ddev-autostart
+      tls: true
+  services:
+    ddev-autostart:
+      loadBalancer:
+        servers:
+          - url: http://host.docker.internal:31999
